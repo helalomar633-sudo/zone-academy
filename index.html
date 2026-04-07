@@ -3,43 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexTech Academy | منصة تعليم المستقبل</title>
+    <title>ZONE | منصة تعليم المستقبل</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Tajawal', sans-serif; }
-    </style>
+    <style>body { font-family: 'Tajawal', sans-serif; }</style>
 </head>
 <body class="bg-gray-50">
 
     <!-- Navigation -->
     <nav class="bg-white shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-2xl font-bold text-indigo-600">NexTech</div>
+            <div class="text-3xl font-black tracking-tighter text-indigo-600 italic">ZONE.</div>
             <div class="hidden md:flex space-x-reverse space-x-8 text-gray-700 font-medium">
-                <a href="#" class="hover:text-indigo-600">الرئيسية</a>
-                <a href="#" class="hover:text-indigo-600">المقررات</a>
-                <a href="#" class="hover:text-indigo-600">المدربون</a>
-                <a href="#" class="hover:text-indigo-600">الإعلانات</a>
+                <a href="index.html" class="hover:text-indigo-600 border-b-2 border-indigo-600">الرئيسية</a>
+                <a href="dashboard.html" class="hover:text-indigo-600 transition">لوحة التحكم</a>
+                <a href="resources.html" class="hover:text-indigo-600 transition">المصادر</a>
             </div>
             <div class="flex items-center space-x-reverse space-x-4">
-                <button class="text-gray-600 font-medium">تسجيل دخول</button>
-                <button class="bg-indigo-600 text-white px-6 py-2 rounded-full hover:bg-indigo-700 transition">ابدأ الآن</button>
+                <a href="dashboard.html" class="bg-indigo-600 text-white px-6 py-2 rounded-full hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">ابدأ الآن</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="bg-gradient-to-r from-indigo-900 to-purple-800 text-white py-20 px-6 text-center">
+    <header class="bg-gradient-to-br from-slate-900 via-indigo-900 to-purple-900 text-white py-24 px-6 text-center">
         <div class="max-w-4xl mx-auto">
-            <h1 class="text-4xl md:text-6xl font-bold mb-6">تعلم التقنيات الحديثة من الصفر حتى الاحتراف</h1>
-            <p class="text-xl mb-10 text-indigo-100">انضم إلى أكثر من 50,000 طالب وطور مهاراتك في البرمجة، الذكاء الاصطناعي، والأمن السيبراني.</p>
+            <span class="bg-indigo-500/20 text-indigo-300 px-4 py-1 rounded-full text-sm font-bold border border-indigo-500/30">مستقبلك يبدأ هنا في ZONE</span>
+            <h1 class="text-5xl md:text-7xl font-black mt-6 mb-6 leading-tight">اقتحم عالم التقنية <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">بثقة واحترافية</span></h1>
+            <p class="text-xl mb-10 text-indigo-100 max-w-2xl mx-auto opacity-80">انضم لأقوى مجتمع تقني عربي، وتعلم البرمجة، الأمن السيبراني، والذكاء الاصطناعي من خلال مشاريع حقيقية.</p>
             <div class="flex flex-col md:flex-row justify-center gap-4">
-                <button class="bg-white text-indigo-900 px-8 py-3 rounded-lg font-bold text-lg">تصفح الدورات</button>
-                <button class="border-2 border-white px-8 py-3 rounded-lg font-bold text-lg hover:bg-white hover:text-indigo-900">انضم كمدرب</button>
+                <a href="#courses" class="bg-white text-indigo-900 px-10 py-4 rounded-xl font-bold text-lg hover:scale-105 transition-transform">تصفح الدورات</a>
+                <a href="resources.html" class="bg-indigo-600/30 backdrop-blur-md border border-indigo-400/30 px-10 py-4 rounded-xl font-bold text-lg hover:bg-indigo-600 transition">المكتبة الرقمية</a>
             </div>
         </div>
     </header>
+
+    <!-- Simple Filter Section -->
+    <section id="courses" class="container mx-auto py-16 px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold">استكشف مسارات ZONE</h2>
+            <p class="text-gray-500 mt-2">اختر مستواك وابدأ رحلتك</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Course Card -->
+            <div class="bg-white rounded-2xl shadow-xl shadow-gray-200/50 overflow-hidden border border-gray-100 group">
+                <div class="h-48 bg-slate-200 overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <a href="dashboard.html" class="bg-white text-indigo-600 px-6 py-2 rounded-full font-bold">ابدأ التعلم</a>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full text-sm uppercase">مبتدئ</span>
+                        <span class="text-green-600 font-bold">مجاني</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">أساسيات الويب (HTML/CSS)</h3>
+                    <div class="flex items-center gap-2 text-gray-400 text-sm border-t pt-4">
+                        <span>⭐ 4.9</span>
+                        <span>•</span>
+                        <span>12 درس</span>
+                    </div>
+                </div>
+            </div>
+            <!-- كرر هذا الكرت لباقي الكورسات -->
+        </div>
+    </section>
 
 </body>
 </html>
