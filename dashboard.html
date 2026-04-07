@@ -1,208 +1,177 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zone Dashboard | نظام التعلم الذكي</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Tajawal', sans-serif; background-color: #000; color: white; }
-        .gold-gradient { background: linear-gradient(90deg, #D4AF37 0%, #F1C40F 50%, #D4AF37 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        .progress-container { width: 100%; background-color: #1e1e1e; border-radius: 10px; height: 6px; overflow: hidden; }
-        .progress-bar { height: 100%; background: #D4AF37; width: 0%; transition: width 0.3s; }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zone Dashboard | لوحة التحكم الديناميكية</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { gold: { 500: '#D4AF37', 600: '#B8860B' }, dark: '#121212' } } }
+        }
+    </script>
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background-color: #000; color: white; }
+        .gold-gradient { background: linear-gradient(90deg, #D4AF37 0%, #F1C40F 50%, #D4AF37 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
 </head>
 <body>
 
-    <div class="flex min-h-screen">
-        <!-- Sidebar -->
-        <aside class="w-64 bg-dark border-l border-white/5 sticky top-0 h-screen hidden md:block">
-            <div class="p-6 text-3xl font-black gold-gradient italic">ZONE.</div>
-            <nav class="mt-10 px-4 space-y-2">
-                <button onclick="showTab('main-dash')" id="btn-main-dash" class="w-full text-right py-2.5 px-4 rounded bg-gold-500 text-black font-bold transition">لوحة التحكم</button>
-                <button onclick="showTab('my-courses')" id="btn-my-courses" class="w-full text-right py-2.5 px-4 rounded hover:bg-white/5 transition text-gray-400">كورساتي</button>
-                <button onclick="handleLogout()" class="w-full text-right py-2.5 px-4 rounded hover:bg-red-600/20 text-red-500 transition mt-10">تسجيل الخروج</button>
-            </nav>
-        </aside>
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-dark border-l border-white/5 sticky top-0 h-screen">
+            <div class="p-6 text-3xl font-black gold-gradient italic">ZONE.</div>
+            <nav class="mt-10 px-4 space-y-2">
+                <button onclick="showTab('main-dash')" id="btn-main-dash" class="w-full text-right py-2.5 px-4 rounded bg-gold-500 text-black font-bold transition">لوحة التحكم</button>
+                <button onclick="showTab('my-courses')" id="btn-my-courses" class="w-full text-right py-2.5 px-4 rounded hover:bg-white/5 transition text-gray-400">كورساتي</button>
+                <button class="w-full text-right py-2.5 px-4 rounded hover:bg-white/5 transition text-gray-400">المصادر</button>
+                <button onclick="handleLogout()" class="w-full text-right py-2.5 px-4 rounded hover:bg-red-600/20 text-red-500 transition mt-10 italic">تسجيل الخروج</button>
+            </nav>
+        </aside>
 
-        <!-- Main Content -->
-        <main class="flex-1 p-6 md:p-10">
-            <header class="flex justify-between items-center mb-10 border-b border-white/5 pb-6">
-                <div>
-                    <h1 class="text-2xl font-bold">مرحباً، <span id="userFirst" class="text-gold-500 italic">بطل ZONE</span></h1>
-                    <p class="text-gray-500 text-sm">إحصائياتك تعتمد على وقت مشاهدتك الفعلي.</p>
-                </div>
-                <div id="userCircle" class="w-12 h-12 bg-gold-500 rounded-full flex items-center justify-center text-black font-black border-2 border-gold-600">؟</div>
-            </header>
+        <!-- Main Content -->
+        <main class="flex-1 p-6 md:p-10">
+            <!-- Header -->
+            <header class="flex justify-between items-center mb-10 border-b border-white/5 pb-6">
+                <div>
+                    <h1 class="text-2xl font-bold">مرحباً، <span id="userFirst" class="text-gold-500 italic">بطل ZONE</span></h1>
+                    <p class="text-gray-500 text-sm">إليك ملخص نشاطك التعليمي اليوم.</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div id="userCircle" class="w-12 h-12 bg-gold-500 rounded-full flex items-center justify-center text-black font-black text-xl border-2 border-gold-600">؟</div>
+                </div>
+            </header>
 
-            <!-- الإحصائيات -->
-            <div id="main-dash" class="tab-content active">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                    <div class="bg-zinc-900 p-6 rounded-2xl border border-white/5">
-                        <p class="text-gray-500 text-xs mb-1">كورسات مكتملة (اجتزت 75%)</p>
-                        <h3 id="completedCount" class="text-3xl font-black text-gold-500">0</h3>
-                    </div>
-                    <div class="bg-zinc-900 p-6 rounded-2xl border border-white/5">
-                        <p class="text-gray-500 text-xs mb-1">وقت التعلم الفعلي</p>
-                        <h3 id="learningHours" class="text-3xl font-black text-white">0 <span class="text-sm text-gray-500">ساعة</span></h3>
-                    </div>
-                    <div class="bg-zinc-900 p-6 rounded-2xl border border-white/5">
-                        <p class="text-gray-500 text-xs mb-1">مستواك الحالي</p>
-                        <h3 id="userLevel" class="text-2xl font-black text-green-500">مبتدئ</h3>
-                    </div>
-                </div>
-            </div>
+            <!-- Tab 1: Main Dashboard -->
+            <div id="main-dash" class="tab-content active">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                    <div class="bg-dark p-6 rounded-2xl border border-white/5">
+                        <p class="text-gray-500 text-sm mb-1">كورسات مكتملة</p>
+                        <h3 id="completedCount" class="text-3xl font-black text-gold-500">0</h3>
+                    </div>
+                    <div class="bg-dark p-6 rounded-2xl border border-white/5">
+                        <p class="text-gray-500 text-sm mb-1">ساعات التعلم</p>
+                        <h3 id="learningHours" class="text-3xl font-black text-white">0 <span class="text-xs font-light text-gray-500">ساعة</span></h3>
+                    </div>
+                    <div class="bg-dark p-6 rounded-2xl border border-white/5">
+                        <p class="text-gray-500 text-sm mb-1">المستوى</p>
+                        <h3 id="userLevel" class="text-2xl font-black text-green-500">مبتدئ</h3>
+                    </div>
+                </div>
+                
+                <h2 class="text-xs font-black mb-6 text-gray-600 uppercase tracking-widest italic">آخر النشاطات</h2>
+                <div id="recentActivity" class="text-gray-500 italic text-sm p-10 border-2 border-dashed border-white/5 rounded-2xl text-center">
+                    لا يوجد نشاط مؤخراً. ابدأ بمشاهدة الدروس لتظهر إحصائياتك هنا!
+                </div>
+            </div>
 
-            <!-- قائمة الكورسات -->
-            <div id="my-courses" class="tab-content">
-                <h2 class="text-2xl font-bold mb-8 gold-gradient">كورساتي المدفوعة</h2>
-                <div id="coursesList" class="space-y-6">
-                    <!-- كورس مثال 1 -->
-                    <div class="bg-zinc-900 p-6 rounded-2xl border border-white/5">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <h4 class="text-xl font-bold">دورة React المتقدمة</h4>
-                                <p class="text-gray-500 text-sm">إجمالي الكورس: 48 ساعة</p>
-                            </div>
-                            <span id="badge-1" class="bg-red-500/10 text-red-500 px-3 py-1 rounded-full text-xs">لم يتم الاشتراك</span>
-                        </div>
-                        
-                        <!-- الفيديو (يظهر فقط بعد الاشتراك) -->
-                        <div id="video-container-1" class="hidden mb-4 aspect-video bg-black rounded-xl overflow-hidden border border-white/10">
-                            <iframe id="iframe-1" width="100%" height="100%" src="https://www.youtube.com/embed/SqcY0GlETPk?enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                        </div>
+            <!-- Tab 2: My Courses -->
+            <div id="my-courses" class="tab-content">
+                <h2 class="text-2xl font-bold mb-8 gold-gradient">كورساتي المشترك بها</h2>
+                <div class="grid grid-cols-1 gap-4" id="coursesList">
+                    <!-- كورس تجريبي 1 -->
+                    <div class="bg-dark p-5 rounded-xl border border-white/5 flex justify-between items-center group hover:border-gold-500/50 transition">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-white/5 rounded flex items-center justify-center font-bold text-gold-500">JS</div>
+                            <div>
+                                <h4 class="font-bold">أساسيات لغة JavaScript</h4>
+                                <p class="text-xs text-gray-500">12 درس • م. عمر هلال</p>
+                            </div>
+                        </div>
+                        <button onclick="completeCourse(this, 5)" class="bg-white/5 hover:bg-gold-500 hover:text-black px-4 py-2 rounded-lg text-xs font-bold transition">إكمال الكورس</button>
+                    </div>
 
-                        <div class="flex items-center gap-4">
-                            <div class="flex-1">
-                                <div class="flex justify-between text-xs mb-1 text-gray-400">
-                                    <span>التقدم: <span id="prog-text-1">0</span>%</span>
-                                    <span>مشاهدة: <span id="hours-text-1">0</span> ساعة</span>
-                                </div>
-                                <div class="progress-container"><div id="bar-1" class="progress-bar"></div></div>
-                            </div>
-                            <button onclick="handleAction(1, 48)" id="btn-1" class="bg-gold-500 text-black px-6 py-2 rounded-xl font-bold hover:scale-105 transition">اشترك الآن</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
+                    <!-- كورس تجريبي 2 -->
+                    <div class="bg-dark p-5 rounded-xl border border-white/5 flex justify-between items-center group hover:border-gold-500/50 transition">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-white/5 rounded flex items-center justify-center font-bold text-gold-500">UI</div>
+                            <div>
+                                <h4 class="font-bold">تصميم واجهات المستخدم</h4>
+                                <p class="text-xs text-gray-500">8 دروس • فريق ZONE</p>
+                            </div>
+                        </div>
+                        <button onclick="completeCourse(this, 3)" class="bg-white/5 hover:bg-gold-500 hover:text-black px-4 py-2 rounded-lg text-xs font-bold transition">إكمال الكورس</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
 
-    <script>
-        // 1. قاعدة بيانات الكورسات (تخيل أنها قادمة من السيرفر)
-        let courses = {
-            1: { id: 1, name: "React", totalHrs: 48, watchedSec: 0, isPaid: false }
-        };
+    <script>
+        // تحميل البيانات عند فتح الصفحة
+        window.onload = () => {
+            const name = localStorage.getItem('z_name') || "بطل ZONE";
+            document.getElementById('userFirst').innerText = name.split(' ')[0];
+            document.getElementById('userCircle').innerText = name.charAt(0);
+            updateStatsUI();
+        };
 
-        // 2. تحميل البيانات عند الفتح
-        window.onload = () => {
-            const saved = localStorage.getItem('zone_data');
-            if (saved) courses = JSON.parse(saved);
+        // وظيفة التبديل بين التبويبات (القوائم)
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            
+            // تحديث شكل الزراير في السايد بار
+            document.querySelectorAll('nav button').forEach(b => {
+                b.classList.remove('bg-gold-500', 'text-black', 'font-bold');
+                b.classList.add('text-gray-400');
+            });
+            const activeBtn = document.getElementById('btn-' + tabId);
+            activeBtn.classList.add('bg-gold-500', 'text-black', 'font-bold');
+            activeBtn.classList.remove('text-gray-400');
+        }
 
-            const name = localStorage.getItem('z_name') || "بطل ZONE";
-            document.getElementById('userFirst').innerText = name.split(' ')[0];
-            document.getElementById('userCircle').innerText = name.charAt(0).toUpperCase();
+        // وظيفة إكمال الكورس وتحديث الذاكرة
+        function completeCourse(btn, hours) {
+            // منع الضغط مرتين
+            if (btn.disabled) return;
+            
+            // تحديث الإحصائيات في الذاكرة
+            let currentCourses = parseInt(localStorage.getItem('stats_done') || 0);
+            let currentHours = parseInt(localStorage.getItem('stats_hours') || 0);
+            
+            localStorage.setItem('stats_done', currentCourses + 1);
+            localStorage.setItem('stats_hours', currentHours + hours);
+            
+            // تغيير شكل الزرار
+            btn.innerText = "✓ مكتمل";
+            btn.classList.replace('bg-white/5', 'bg-green-600/20');
+            btn.classList.add('text-green-500');
+            btn.disabled = true;
+            
+            updateStatsUI();
+            alert("عاش يا بطل! تم إضافة " + hours + " ساعات لملفك الشخصي.");
+        }
 
-            updateUI();
-        };
+        // تحديث أرقام لوحة التحكم من الذاكرة
+        function updateStatsUI() {
+            const done = localStorage.getItem('stats_done') || 0;
+            const hours = localStorage.getItem('stats_hours') || 0;
+            
+            document.getElementById('completedCount').innerText = done;
+            document.getElementById('learningHours').innerText = hours;
+            
+            // تحديث المستوى تلقائياً
+            const levelTag = document.getElementById('userLevel');
+            if (done >= 5) {
+                levelTag.innerText = "متقدم";
+                levelTag.className = "text-2xl font-black text-purple-500";
+            } else if (done >= 2) {
+                levelTag.innerText = "متوسط";
+                levelTag.className = "text-2xl font-black text-blue-500";
+            } else {
+                levelTag.innerText = "مبتدئ";
+                levelTag.className = "text-2xl font-black text-green-500";
+            }
+        }
 
-        // 3. التبديل بين التبويبات
-        function showTab(id) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            // تغيير شكل الزراير
-            document.querySelectorAll('nav button').forEach(b => b.classList.remove('bg-gold-500', 'text-black'));
-            document.getElementById('btn-'+id).classList.add('bg-gold-500', 'text-black');
-        }
-
-        // 4. زر الاشتراك أو المشاهدة
-        function handleAction(id, totalHrs) {
-            if (!courses[id].isPaid) {
-                if(confirm("هل تريد شراء هذا الكورس؟")) {
-                    courses[id].isPaid = true;
-                    save();
-                    updateUI();
-                }
-            } else {
-                // فتح الفيديو
-                const container = document.getElementById(`video-container-${id}`);
-                container.classList.toggle('hidden');
-                if(!container.classList.contains('hidden')) {
-                    startTimer(id);
-                } else {
-                    stopTimer();
-                }
-            }
-        }
-
-        // 5. عداد الوقت الفعلي
-        let activeTimer;
-        function startTimer(id) {
-            if(activeTimer) clearInterval(activeTimer);
-            activeTimer = setInterval(() => {
-                courses[id].watchedSec += 1; // زيادة ثانية
-                updateUI();
-                save();
-            }, 1000); // كل ثانية
-        }
-
-        function stopTimer() {
-            clearInterval(activeTimer);
-        }
-
-        // 6. تحديث واجهة المستخدم بالكامل
-        function updateUI() {
-            let totalHoursWatched = 0;
-            let totalCompleted = 0;
-
-            Object.values(courses).forEach(c => {
-                const hours = c.watchedSec / 3600;
-                totalHoursWatched += hours;
-
-                // تحديث بيانات الكورس في القائمة
-                if (c.isPaid) {
-                    const btn = document.getElementById(`btn-${c.id}`);
-                    btn.innerText = "متابعة الدرس";
-                    btn.classList.replace('bg-gold-500', 'bg-zinc-800');
-                    btn.classList.add('text-white');
-                    document.getElementById(`badge-${c.id}`).innerText = "تم الاشتراك";
-                    document.getElementById(`badge-${c.id}`).classList.replace('text-red-500', 'text-green-500');
-                }
-
-                // حساب النسبة المئوية
-                const percent = Math.min(((hours / c.totalHrs) * 100).toFixed(1), 100);
-                document.getElementById(`prog-text-${c.id}`).innerText = percent;
-                document.getElementById(`hours-text-${c.id}`).innerText = hours.toFixed(2);
-                document.getElementById(`bar-${c.id}`).style.width = percent + "%";
-
-                // شرط الـ 75% لاحتساب الكورس كـ "مكتمل"
-                if (percent >= 75) {
-                    totalCompleted += 1;
-                }
-            });
-
-            // تحديث أرقام الداشبورد الرئيسية
-            document.getElementById('completedCount').innerText = totalCompleted;
-            document.getElementById('learningHours').innerHTML = `${totalHoursWatched.toFixed(2)} <span class="text-sm text-gray-500">ساعة</span>`;
-
-            // تحديث المستوى
-            const level = document.getElementById('userLevel');
-            if(totalHoursWatched > 20) { level.innerText = "متقدم"; level.className = "text-2xl font-black text-purple-500"; }
-            else if(totalHoursWatched > 5) { level.innerText = "متوسط"; level.className = "text-2xl font-black text-blue-500"; }
-            else { level.innerText = "مبتدئ"; level.className = "text-2xl font-black text-green-500"; }
-        }
-
-        function save() {
-            localStorage.setItem('zone_data', JSON.stringify(courses));
-        }
-
-        function handleLogout() {
-            localStorage.clear();
-            window.location.href = "index.html";
-        }
-    </script>
+        function handleLogout() {
+            localStorage.clear();
+            window.location.href = "index.html";
+        }
+    </script>
 </body>
 </html>
