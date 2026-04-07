@@ -4,51 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZONE | منصة تعليم المستقبل</title>
+    <!-- استخدام Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>body { font-family: 'Tajawal', sans-serif; }</style>
-</head>
-<body class="bg-gray-50 text-gray-900">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            100: '#fdf7e6',
+                            500: '#D4AF37', /* اللون الذهبي الملكي */
+                            600: '#B8860B',
+                        },
+                        dark: '#121212', /* الأسود العميق */
+                    }
+                }
+            }
+        }
+    </script>
 
-    <!-- Navigation -->
-    <nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background-color: #121212; }
+        .gold-gradient {
+            background: linear-gradient(90deg, #D4AF37 0%, #F1C40F 50%, #D4AF37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-border { border-color: #D4AF37; }
+    </style>
+</head>
+<body class="text-gray-100">
+
+    <!-- Navigation (القائمة العلوية) -->
+    <nav class="bg-black/80 backdrop-blur-md sticky top-0 z-50 border-b border-gold-500/30">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <!-- اسم المنصة الجديد -->
-            <div class="text-3xl font-black tracking-tighter text-indigo-600 italic">ZONE.</div>
+            <!-- اسم المنصة الجديد بالذهبي -->
+            <div class="text-3xl font-black tracking-tighter gold-gradient italic">ZONE.</div>
             
-            <!-- روابط التنقل (تأكد أن أسماء الملفات مطابقة لما في جيت هاب) -->
+            <!-- روابط التنقل - شغالين دلوقتي -->
             <div class="hidden md:flex space-x-reverse space-x-8 font-bold">
-                <a href="index.html" class="text-indigo-600">الرئيسية</a>
-                <a href="dashboard.html" class="text-gray-500 hover:text-indigo-600">لوحة التحكم</a>
-                <a href="resources.html" class="text-gray-500 hover:text-indigo-600">المصادر</a>
+                <a href="index.html" class="text-gold-500 border-b-2 border-gold-500">الرئيسية</a>
+                <a href="dashboard.html" class="text-gray-300 hover:text-gold-500 transition">لوحة التحكم</a>
+                <a href="resources.html" class="text-gray-300 hover:text-gold-500 transition">المصادر</a>
             </div>
 
             <div class="flex items-center gap-4">
-                <a href="dashboard.html" class="bg-indigo-600 text-white px-6 py-2 rounded-xl font-bold hover:bg-indigo-700 transition">ابدأ الآن</a>
+                <a href="dashboard.html" class="bg-gold-500 text-black px-6 py-2 rounded-lg font-bold hover:bg-gold-600 transition shadow-[0_0_15px_rgba(212,175,55,0.3)]">ابدأ الآن</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="bg-slate-900 text-white py-24 px-6 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+    <!-- Hero Section (الواجهة الرئيسية) -->
+    <header class="relative py-32 px-6 overflow-hidden bg-dark">
+        <!-- تأثير خلفية فخم -->
+        <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-gold-500/10 blur-[120px] rounded-full"></div>
+
         <div class="container mx-auto text-center relative z-10">
-            <h1 class="text-5xl md:text-7xl font-black mb-6">مرحباً بك في <span class="text-indigo-500">ZONE</span></h1>
-            <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">منصتك المتكاملة لتعلم البرمجة والتقنيات الحديثة من الصفر.</p>
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="dashboard.html" class="bg-white text-slate-900 px-10 py-4 rounded-2xl font-black text-lg hover:bg-indigo-500 hover:text-white transition">دخول لوحة التحكم</a>
-                <a href="resources.html" class="border-2 border-white/20 px-10 py-4 rounded-2xl font-black text-lg hover:bg-white/10 transition">تحميل المصادر</a>
+            <h1 class="text-6xl md:text-8xl font-black mb-6">مرحباً بك في <span class="gold-gradient">ZONE</span></h1>
+            <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto font-light">مستقبلك يبدأ من هنا. تعلم البرمجة والتقنيات الحديثة بأعلى معايير الجودة في منصتنا الجديدة.</p>
+            
+            <!-- الزراير - تم الربط بنجاح -->
+            <div class="flex flex-wrap justify-center gap-6">
+                <a href="dashboard.html" class="bg-gold-500 text-black px-10 py-4 rounded-xl font-black text-lg hover:scale-105 transition-all shadow-lg shadow-gold-500/20">
+                    دخول لوحة التحكم
+                </a>
+                <a href="resources.html" class="border-2 border-gold-500/50 text-gold-500 px-10 py-4 rounded-xl font-black text-lg hover:bg-gold-500/10 transition-all">
+                    تصفح المصادر
+                </a>
             </div>
         </div>
     </header>
 
-    <!-- دليل تفعيل الزراير للمستخدم -->
-    <section class="py-10 bg-yellow-50 border-y border-yellow-100">
-        <div class="container mx-auto px-6 text-center">
-            <p class="text-yellow-800 font-bold">⚠️ ملاحظة: لكي تعمل الزراير، تأكد من وجود ملفات باسم <span class="underline">dashboard.html</span> و <span class="underline">resources.html</span> في مستودعك.</p>
+    <!-- مميزات بسيطة أسفل الهيدر -->
+    <section class="py-20 bg-black/50">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div class="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-gold-500/50 transition">
+                <div class="text-gold-500 text-4xl mb-4">🚀</div>
+                <h3 class="text-xl font-bold mb-2">تعلم سريع</h3>
+                <p class="text-gray-400">مناهج مكثفة تنقلك من الصفر للاحتراف.</p>
+            </div>
+            <div class="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-gold-500/50 transition">
+                <div class="text-gold-500 text-4xl mb-4">💎</div>
+                <h3 class="text-xl font-bold mb-2">محتوى حصري</h3>
+                <p class="text-gray-400">دورات تدريبية لن تجدها في أي مكان آخر.</p>
+            </div>
+            <div class="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-gold-500/50 transition">
+                <div class="text-gold-500 text-4xl mb-4">🛠️</div>
+                <h3 class="text-xl font-bold mb-2">تطبيق عملي</h3>
+                <p class="text-gray-400">مشاريع حقيقية تبني بها معرض أعمالك.</p>
+            </div>
         </div>
     </section>
 
 </body>
 </html>
-        
