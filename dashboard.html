@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zone Dashboard | لوحة تحكم الطالب</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Tajawal', sans-serif; }</style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <!-- Sidebar & Main Content Wrapper -->
+    <div class="flex min-h-screen">
+        
+        <!-- Sidebar -->
+        <aside class="w-64 bg-slate-900 text-white hidden md:block">
+            <div class="p-6 text-3xl font-black tracking-tighter text-indigo-400 italic">ZONE.</div>
+            <nav class="mt-10 px-4 space-y-2">
+                <a href="#" class="block py-2.5 px-4 rounded bg-indigo-600">لوحة التحكم</a>
+                <a href="#" class="block py-2.5 px-4 rounded hover:bg-slate-800 transition">كورساتي</a>
+                <a href="#" class="block py-2.5 px-4 rounded hover:bg-slate-800 transition">الإعلانات</a>
+                <a href="#" class="block py-2.5 px-4 rounded hover:bg-slate-800 transition">المصادر</a>
+                <a href="#" class="block py-2.5 px-4 rounded hover:bg-slate-800 transition">الإعدادات</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6 md:p-10">
+            <!-- Top Header -->
+            <header class="flex justify-between items-center mb-10">
+                <div>
+                    <h1 class="text-2xl font-bold">مرحباً بك يا بطل! 👋</h1>
+                    <p class="text-slate-500">استكمل رحلتك التعليمية اليوم.</p>
+                </div>
+                <div class="flex items-center space-x-reverse space-x-4">
+                    <div class="text-left">
+                        <p class="text-sm font-bold">أحمد محمد</p>
+                        <p class="text-xs text-slate-400">طالب تقني</p>
+                    </div>
+                    <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center border-2 border-indigo-500 text-indigo-600 font-bold">أ</div>
+                </div>
+            </header>
+
+            <!-- Progress Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                    <p class="text-slate-500 text-sm">كورسات مكتملة</p>
+                    <h3 class="text-3xl font-bold text-indigo-600">12</h3>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                    <p class="text-slate-500 text-sm">ساعات التعلم</p>
+                    <h3 class="text-3xl font-bold text-purple-600">48 ساعة</h3>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                    <p class="text-slate-500 text-sm">المستوى الحالي</p>
+                    <h3 class="text-3xl font-bold text-green-600">متقدم</h3>
+                </div>
+            </div>
+
+            <!-- Active Courses (Progress Tracker) -->
+            <h2 class="text-xl font-bold mb-4 italic uppercase tracking-widest text-slate-400">تواصل التقدم</h2>
+            <div class="space-y-4">
+                <!-- Course 1 -->
+                <div class="bg-white p-4 rounded-xl shadow-sm flex flex-col md:flex-row md:items-center justify-between border border-slate-100">
+                    <div class="flex items-center space-x-reverse space-x-4">
+                        <div class="w-14 h-14 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">React</div>
+                        <div>
+                            <h4 class="font-bold">احتراف تطوير الواجهات بـ React</h4>
+                            <p class="text-xs text-slate-400">المدرب: م. علي حسن</p>
+                        </div>
+                    </div>
+                    <!-- Progress Bar -->
+                    <div class="w-full md:w-64 mt-4 md:mt-0">
+                        <div class="flex justify-between text-xs mb-1">
+                            <span>نسبة الإنجاز</span>
+                            <span class="font-bold">75%</span>
+                        </div>
+                        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                            <div class="bg-indigo-600 h-full w-[75%]"></div>
+                        </div>
+                    </div>
+                    <button class="mt-4 md:mt-0 bg-slate-900 text-white px-6 py-2 rounded-lg text-sm hover:bg-indigo-600 transition">متابعة الدرس</button>
+                </div>
+
+                <!-- Course 2 -->
+                <div class="bg-white p-4 rounded-xl shadow-sm flex flex-col md:flex-row md:items-center justify-between border border-slate-100">
+                    <div class="flex items-center space-x-reverse space-x-4">
+                        <div class="w-14 h-14 bg-orange-500 rounded-lg flex items-center justify-center text-white font-bold">AWS</div>
+                        <div>
+                            <h4 class="font-bold">أساسيات السحابة الإلكترونية AWS</h4>
+                            <p class="text-xs text-slate-400">المدرب: خبير تقني</p>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-64 mt-4 md:mt-0">
+                        <div class="flex justify-between text-xs mb-1">
+                            <span>نسبة الإنجاز</span>
+                            <span class="font-bold">30%</span>
+                        </div>
+                        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                            <div class="bg-orange-500 h-full w-[30%]"></div>
+                        </div>
+                    </div>
+                    <button class="mt-4 md:mt-0 bg-slate-900 text-white px-6 py-2 rounded-lg text-sm hover:bg-indigo-600 transition">متابعة الدرس</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>
