@@ -37,7 +37,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        /* Preloader Styles */
         #loader {
             position: fixed; inset: 0; background: #121212; z-index: 999;
             display: flex; justify-content: center; align-items: center;
@@ -52,29 +51,24 @@
 </head>
 <body class="text-gray-100">
 
-    <!-- 1. شاشة التحميل (Preloader) -->
+    <!-- 1. شاشة التحميل -->
     <div id="loader">
         <div class="text-4xl font-black gold-gradient animate-pulse italic">ZONE...</div>
     </div>
 
-    <!-- 2. شريط الإشعارات العلوي -->
+    <!-- 2. شريط الإشعارات -->
     <div class="bg-gold-500 text-black text-center py-1.5 text-xs font-bold border-b border-yellow-600">
         <div class="animate-pulse">🔥 عرض محدود: سجل الآن وابدأ رحلتك التعليمية في عالم البرمجة مجاناً! 🔥</div>
     </div>
 
-    <!-- 3. القائمة العلوية (Navigation) -->
+    <!-- 3. القائمة العلوية -->
     <nav class="bg-black/80 backdrop-blur-md sticky top-0 z-50 border-b border-gold-500/30">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="text-3xl font-black tracking-tighter gold-gradient italic cursor-pointer" onclick="location.reload()">ZONE.</div>
             
-            <!-- القائمة السريعة المضافة حديثاً -->
-            <div class="hidden md:flex gap-6 text-sm font-bold">
-                <a href="books.html" class="hover:text-gold-500 transition">الكتب</a>
-                <a href="about.html" class="hover:text-gold-500 transition">من نحن</a>
-            </div>
-
             <div class="flex items-center gap-4">
                 <span id="welcomeName" class="hidden text-gold-500 font-bold ml-2 text-sm md:text-base"></span>
+                
                 <div class="flex gap-2">
                     <button id="logoutBtn" onclick="openLogoutModal()" class="hidden bg-red-600/10 text-red-500 border border-red-600/30 px-3 py-2 rounded-lg font-bold hover:bg-red-600 hover:text-white transition text-xs">تسجيل خروج</button>
                     <button onclick="openAuthModal()" id="navAuthBtn" class="bg-gold-500 text-black px-5 py-2 rounded-lg font-bold hover:bg-gold-600 transition shadow-[0_0_15px_rgba(212,175,55,0.3)] animate-bounce text-sm">ابدأ الآن</button>
@@ -83,7 +77,7 @@
         </div>
     </nav>
 
-    <!-- 4. واجهة البطل (Hero Section) -->
+    <!-- 4. واجهة البطل (Hero) -->
     <header class="relative py-24 md:py-32 px-6 overflow-hidden bg-dark">
         <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-gold-500/10 blur-[120px] rounded-full"></div>
@@ -91,13 +85,13 @@
         <div class="container mx-auto text-center relative z-10">
             <h1 class="text-5xl md:text-8xl font-black mb-6 leading-tight">مرحباً بك في <span class="gold-gradient">ZONE</span></h1>
             <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
-                وجهتك الأولى لاحتراف التقنيات الحديثة. تصفح كتبنا، تابع كورساتك، وانضم لمجتمع المبدعين.
+                وجهتك الأولى لاحتراف التقنيات الحديثة. سجل بياناتك، احفظ رمزك السري، وابدأ التعلم فوراً.
             </p>
             <div class="flex flex-wrap justify-center gap-4">
                 <button onclick="openAuthModal()" id="heroMainBtn" class="bg-gold-500 text-black px-10 py-4 rounded-xl font-black text-lg hover:scale-105 transition-all shadow-lg shadow-gold-500/20">
                     إنشاء حساب جديد
                 </button>
-                <!-- تعديل زر المصادر ليكون الكتب -->
+                <!-- تغيير "تصفح المصادر" إلى "تصفح الكتب" -->
                 <a href="books.html" class="border-2 border-gold-500/30 text-gold-500 px-10 py-4 rounded-xl font-black text-lg hover:bg-gold-500/10 transition-all">
                     تصفح الكتب
                 </a>
@@ -105,36 +99,34 @@
         </div>
     </header>
 
-    <!-- 5. مميزات سريعة -->
+    <!-- 5. المميزات (تم تحديث الأيقونات والنصوص لتناسب طلبك) -->
     <section class="py-16 bg-black/50 border-t border-white/5">
         <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div class="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-gold-500/40 transition group">
                 <div class="text-gold-500 text-4xl mb-4 group-hover:scale-110 transition">📚</div>
-                <h3 class="text-xl font-bold mb-2">مكتبة شاملة</h3>
-                <p class="text-gray-400 text-sm">أحدث الكتب التقنية والبرمجية بين يديك.</p>
+                <h3 class="text-xl font-bold mb-2">قسم الكتب</h3>
+                <p class="text-gray-400 text-sm">مكتبة رقمية متكاملة لتعزيز مهاراتك البرمجية.</p>
             </div>
-            <div class="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-gold-500/40 transition group">
-                <div class="text-gold-500 text-4xl mb-4 group-hover:scale-110 transition">🎓</div>
-                <h3 class="text-xl font-bold mb-2">تنظيم ذكي</h3>
-                <p class="text-gray-400 text-sm">افصل بين الكورسات الجارية والمكتملة بسهولة.</p>
+            <div class="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-gold-500/40 transition group cursor-pointer" onclick="window.location.href='about.html'">
+                <div class="text-gold-500 text-4xl mb-4 group-hover:scale-110 transition">👥</div>
+                <h3 class="text-xl font-bold mb-2">من نحن</h3>
+                <p class="text-gray-400 text-sm">تعرف على فريق ZONE ورؤيتنا لمستقبل التعليم.</p>
             </div>
             <div class="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-gold-500/40 transition group">
                 <div class="text-gold-500 text-4xl mb-4 group-hover:scale-110 transition">💎</div>
-                <h3 class="text-xl font-bold mb-2">من نحن</h3>
-                <p class="text-gray-400 text-sm">تعرف على رؤيتنا في تطوير المحتوى التعليمي العربي.</p>
+                <h3 class="text-xl font-bold mb-2">شهادات معتمدة</h3>
+                <p class="text-gray-400 text-sm">احصل على شهادة إتمام بعد كل مسار تعليمي.</p>
             </div>
         </div>
     </section>
 
-    <!-- 6. نافذة التسجيل (Auth Modal) -->
+    <!-- 6. نافذة التسجيل (Modal) -->
     <div id="authModal" class="hidden fixed inset-0 bg-black/95 flex items-center justify-center z-[100] p-4 backdrop-blur-md">
         <div class="bg-dark border border-gold-500/40 p-8 rounded-3xl max-w-md w-full relative">
             <button onclick="closeAuthModal()" class="absolute top-5 left-5 text-gray-400 hover:text-white transition">✕</button>
-            
             <div id="authContent">
                 <h2 class="text-2xl font-bold mb-1 gold-gradient text-center" id="modalTitle">انضم إلى ZONE</h2>
                 <p class="text-gray-400 text-xs text-center mb-6" id="modalSubTitle">أدخل بياناتك لإنشاء ملفك الشخصي</p>
-                
                 <div class="space-y-4">
                     <div id="nameFields" class="grid grid-cols-2 gap-4">
                         <input type="text" id="fName" placeholder="الاسم الأول" class="w-full bg-white/5 border border-white/10 rounded-xl p-3 outline-none focus:border-gold-500 text-white text-sm">
@@ -159,7 +151,7 @@
             <h2 class="text-xl font-bold mb-2 text-white">هل تريد تسجيل الخروج؟</h2>
             <p class="text-gray-400 mb-8 text-sm leading-relaxed">سيتم <span class="text-red-500 font-bold underline">حذف بيانات حسابك</span> من هذا الجهاز.</p>
             <div class="flex gap-3">
-                <button onclick="clearEverything()" class="flex-1 bg-red-600 text-white font-bold py-3 rounded-xl hover:bg-red-700 transition">نعم، تسجيل خروج</button>
+                <button onclick="clearEverything()" class="flex-1 bg-red-600 text-white font-bold py-3 rounded-xl hover:bg-red-700 transition">نعم، امسح حسابي</button>
                 <button onclick="closeLogoutModal()" class="flex-1 bg-white/10 text-white font-bold py-3 rounded-xl hover:bg-white/20 transition">إلغاء</button>
             </div>
         </div>
