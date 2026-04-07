@@ -43,7 +43,6 @@
             display: flex; justify-content: center; align-items: center;
             transition: opacity 0.5s ease;
         }
-        /* Chrome, Safari, Edge, Opera - Remove arrows from number input */
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
             -webkit-appearance: none;
@@ -68,9 +67,14 @@
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="text-3xl font-black tracking-tighter gold-gradient italic cursor-pointer" onclick="location.reload()">ZONE.</div>
             
+            <!-- القائمة السريعة المضافة حديثاً -->
+            <div class="hidden md:flex gap-6 text-sm font-bold">
+                <a href="books.html" class="hover:text-gold-500 transition">الكتب</a>
+                <a href="about.html" class="hover:text-gold-500 transition">من نحن</a>
+            </div>
+
             <div class="flex items-center gap-4">
                 <span id="welcomeName" class="hidden text-gold-500 font-bold ml-2 text-sm md:text-base"></span>
-                
                 <div class="flex gap-2">
                     <button id="logoutBtn" onclick="openLogoutModal()" class="hidden bg-red-600/10 text-red-500 border border-red-600/30 px-3 py-2 rounded-lg font-bold hover:bg-red-600 hover:text-white transition text-xs">تسجيل خروج</button>
                     <button onclick="openAuthModal()" id="navAuthBtn" class="bg-gold-500 text-black px-5 py-2 rounded-lg font-bold hover:bg-gold-600 transition shadow-[0_0_15px_rgba(212,175,55,0.3)] animate-bounce text-sm">ابدأ الآن</button>
@@ -87,14 +91,15 @@
         <div class="container mx-auto text-center relative z-10">
             <h1 class="text-5xl md:text-8xl font-black mb-6 leading-tight">مرحباً بك في <span class="gold-gradient">ZONE</span></h1>
             <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
-                وجهتك الأولى لاحتراف التقنيات الحديثة. سجل بياناتك، احفظ رمزك السري، وابدأ التعلم فوراً.
+                وجهتك الأولى لاحتراف التقنيات الحديثة. تصفح كتبنا، تابع كورساتك، وانضم لمجتمع المبدعين.
             </p>
             <div class="flex flex-wrap justify-center gap-4">
                 <button onclick="openAuthModal()" id="heroMainBtn" class="bg-gold-500 text-black px-10 py-4 rounded-xl font-black text-lg hover:scale-105 transition-all shadow-lg shadow-gold-500/20">
                     إنشاء حساب جديد
                 </button>
-                <a href="resources.html" class="border-2 border-gold-500/30 text-gold-500 px-10 py-4 rounded-xl font-black text-lg hover:bg-gold-500/10 transition-all">
-                    تصفح المصادر
+                <!-- تعديل زر المصادر ليكون الكتب -->
+                <a href="books.html" class="border-2 border-gold-500/30 text-gold-500 px-10 py-4 rounded-xl font-black text-lg hover:bg-gold-500/10 transition-all">
+                    تصفح الكتب
                 </a>
             </div>
         </div>
@@ -104,19 +109,19 @@
     <section class="py-16 bg-black/50 border-t border-white/5">
         <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div class="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-gold-500/40 transition group">
-                <div class="text-gold-500 text-4xl mb-4 group-hover:scale-110 transition">🚀</div>
-                <h3 class="text-xl font-bold mb-2">تطور سريع</h3>
-                <p class="text-gray-400 text-sm">محتوى تعليمي مركز للوصول لسوق العمل.</p>
+                <div class="text-gold-500 text-4xl mb-4 group-hover:scale-110 transition">📚</div>
+                <h3 class="text-xl font-bold mb-2">مكتبة شاملة</h3>
+                <p class="text-gray-400 text-sm">أحدث الكتب التقنية والبرمجية بين يديك.</p>
             </div>
             <div class="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-gold-500/40 transition group">
-                <div class="text-gold-500 text-4xl mb-4 group-hover:scale-110 transition">🛡️</div>
-                <h3 class="text-xl font-bold mb-2">خصوصية تامة</h3>
-                <p class="text-gray-400 text-sm">بياناتك ورمزك السري محفوظان بجهازك فقط.</p>
+                <div class="text-gold-500 text-4xl mb-4 group-hover:scale-110 transition">🎓</div>
+                <h3 class="text-xl font-bold mb-2">تنظيم ذكي</h3>
+                <p class="text-gray-400 text-sm">افصل بين الكورسات الجارية والمكتملة بسهولة.</p>
             </div>
             <div class="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-gold-500/40 transition group">
                 <div class="text-gold-500 text-4xl mb-4 group-hover:scale-110 transition">💎</div>
-                <h3 class="text-xl font-bold mb-2">شهادات معتمدة</h3>
-                <p class="text-gray-400 text-sm">احصل على شهادة إتمام بعد كل مسار تعليمي.</p>
+                <h3 class="text-xl font-bold mb-2">من نحن</h3>
+                <p class="text-gray-400 text-sm">تعرف على رؤيتنا في تطوير المحتوى التعليمي العربي.</p>
             </div>
         </div>
     </section>
@@ -147,21 +152,20 @@
         </div>
     </div>
 
-    <!-- 7. نافذة تأكيد الخروج وحذف الحساب -->
+    <!-- 7. نافذة تأكيد الخروج -->
     <div id="logoutModal" class="hidden fixed inset-0 bg-black/95 flex items-center justify-center z-[110] p-4 backdrop-blur-md">
         <div class="bg-dark border border-red-600/30 p-8 rounded-3xl max-w-sm w-full text-center">
             <div class="text-4xl mb-4">⚠️</div>
             <h2 class="text-xl font-bold mb-2 text-white">هل تريد تسجيل الخروج؟</h2>
-            <p class="text-gray-400 mb-8 text-sm leading-relaxed">سيتم <span class="text-red-500 font-bold underline">حذف بيانات حسابك</span> من هذا الجهاز. ستحتاج للتسجيل من جديد للدخول.</p>
+            <p class="text-gray-400 mb-8 text-sm leading-relaxed">سيتم <span class="text-red-500 font-bold underline">حذف بيانات حسابك</span> من هذا الجهاز.</p>
             <div class="flex gap-3">
-                <button onclick="clearEverything()" class="flex-1 bg-red-600 text-white font-bold py-3 rounded-xl hover:bg-red-700 transition">نعم، امسح حسابي</button>
+                <button onclick="clearEverything()" class="flex-1 bg-red-600 text-white font-bold py-3 rounded-xl hover:bg-red-700 transition">نعم، تسجيل خروج</button>
                 <button onclick="closeLogoutModal()" class="flex-1 bg-white/10 text-white font-bold py-3 rounded-xl hover:bg-white/20 transition">إلغاء</button>
             </div>
         </div>
     </div>
 
     <script>
-        // --- 1. التحكم في الشاشة التحميلية ---
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('loader').style.opacity = '0';
@@ -170,13 +174,11 @@
             renderUI();
         });
 
-        // --- 2. فتح وإغلاق النوافذ ---
         function openAuthModal() { document.getElementById('authModal').classList.remove('hidden'); }
         function closeAuthModal() { document.getElementById('authModal').classList.add('hidden'); }
         function openLogoutModal() { document.getElementById('logoutModal').classList.remove('hidden'); }
         function closeLogoutModal() { document.getElementById('logoutModal').classList.add('hidden'); }
 
-        // --- 3. تحديث واجهة المستخدم بناءً على الحساب ---
         function renderUI() {
             const user = localStorage.getItem('z_name');
             const welcome = document.getElementById('welcomeName');
@@ -194,7 +196,6 @@
                 heroBtn.innerText = "دخول لوحة التحكم";
                 heroBtn.onclick = () => window.location.href = "dashboard.html";
                 
-                // تحديث شكل المودال ليصبح تسجيل دخول فقط
                 document.getElementById('modalTitle').innerText = "تسجيل الدخول";
                 document.getElementById('modalSubTitle').innerText = "أدخل رمزك السري للمتابعة";
                 document.getElementById('nameFields').classList.add('hidden');
@@ -204,18 +205,15 @@
             }
         }
 
-        // --- 4. معالجة التسجيل والدخول ---
         function handleLogic() {
             const fName = document.getElementById('fName').value;
             const lName = document.getElementById('lName').value;
             const email = document.getElementById('uEmail').value;
             const pin = document.getElementById('uPin').value;
             const statusMsg = document.getElementById('msg');
-
             const storedPin = localStorage.getItem('z_pin');
 
             if (!storedPin) {
-                // حالة تسجيل جديد
                 if (!fName || !lName || !email.includes('@') || pin.length !== 6) {
                     statusMsg.innerText = "يرجى إكمال البيانات ورمز من 6 أرقام";
                     statusMsg.className = "text-center text-xs mt-2 text-red-500 font-bold";
@@ -226,7 +224,6 @@
                 localStorage.setItem('z_pin', pin);
                 statusMsg.innerText = "أهلاً بك في عائلة ZONE! جاري التحميل...";
             } else {
-                // حالة تسجيل دخول
                 if (pin === storedPin) {
                     statusMsg.innerText = "تم التحقق بنجاح.. أهلاً بعودتك";
                 } else {
@@ -240,7 +237,6 @@
             setTimeout(() => window.location.href = "dashboard.html", 1000);
         }
 
-        // --- 5. مسح الحساب وتسجيل الخروج النهائي ---
         function clearEverything() {
             localStorage.clear();
             location.reload();
