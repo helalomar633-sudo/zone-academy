@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZONE | منصة تعليم المستقبل</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     
     <script>
@@ -12,11 +14,11 @@
             theme: {
                 extend: {
                     colors: {
-                        gold: { 500: '#D4AF37', 600: '#B8860B' },
+                        gold: {
+                            500: '#D4AF37',
+                            600: '#B8860B',
+                        },
                         dark: '#121212',
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     }
                 }
             }
@@ -24,17 +26,28 @@
     </script>
 
     <style>
-        body { font-family: 'Tajawal', sans-serif; background-color: #121212; overflow-x: hidden; }
+        body { 
+            font-family: 'Tajawal', sans-serif; 
+            background-color: #121212; 
+            margin: 0;
+            overflow-x: hidden;
+        }
         .gold-gradient {
             background: linear-gradient(90deg, #D4AF37 0%, #F1C40F 50%, #D4AF37 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        /* شاشة التحميل */
+        /* Preloader Styles */
         #loader {
             position: fixed; inset: 0; background: #121212; z-index: 999;
             display: flex; justify-content: center; align-items: center;
             transition: opacity 0.5s ease;
+        }
+        /* Chrome, Safari, Edge, Opera - Remove arrows from number input */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
         }
     </style>
 </head>
@@ -42,135 +55,195 @@
 
     <!-- 1. شاشة التحميل (Preloader) -->
     <div id="loader">
-        <div class="text-4xl font-black gold-gradient animate-pulse">ZONE...</div>
+        <div class="text-4xl font-black gold-gradient animate-pulse italic">ZONE...</div>
     </div>
 
-    <!-- 2. شريط الإشعارات المتحرك -->
+    <!-- 2. شريط الإشعارات العلوي -->
     <div class="bg-gold-500 text-black text-center py-1.5 text-xs font-bold border-b border-yellow-600">
-        <div class="animate-pulse">🔥 عرض خاص: سجل الآن واحصل على وصول مجاني للمصادر الحصرية! 🔥</div>
+        <div class="animate-pulse">🔥 عرض محدود: سجل الآن وابدأ رحلتك التعليمية في عالم البرمجة مجاناً! 🔥</div>
     </div>
 
-    <!-- Navigation -->
+    <!-- 3. القائمة العلوية (Navigation) -->
     <nav class="bg-black/80 backdrop-blur-md sticky top-0 z-50 border-b border-gold-500/30">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-3xl font-black tracking-tighter gold-gradient italic">ZONE.</div>
+            <div class="text-3xl font-black tracking-tighter gold-gradient italic cursor-pointer" onclick="location.reload()">ZONE.</div>
+            
             <div class="flex items-center gap-4">
-                <span id="welcomeName" class="hidden text-gold-500 font-bold ml-4"></span>
-                <button onclick="openAuthModal()" id="navAuthBtn" class="bg-gold-500 text-black px-6 py-2 rounded-lg font-bold hover:bg-gold-600 transition shadow-[0_0_15px_rgba(212,175,55,0.3)] animate-bounce">ابدأ الآن</button>
+                <span id="welcomeName" class="hidden text-gold-500 font-bold ml-2 text-sm md:text-base"></span>
+                
+                <div class="flex gap-2">
+                    <button id="logoutBtn" onclick="openLogoutModal()" class="hidden bg-red-600/10 text-red-500 border border-red-600/30 px-3 py-2 rounded-lg font-bold hover:bg-red-600 hover:text-white transition text-xs">تسجيل خروج</button>
+                    <button onclick="openAuthModal()" id="navAuthBtn" class="bg-gold-500 text-black px-5 py-2 rounded-lg font-bold hover:bg-gold-600 transition shadow-[0_0_15px_rgba(212,175,55,0.3)] animate-bounce text-sm">ابدأ الآن</button>
+                </div>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="relative py-32 px-6 overflow-hidden bg-dark">
+    <!-- 4. واجهة البطل (Hero Section) -->
+    <header class="relative py-24 md:py-32 px-6 overflow-hidden bg-dark">
         <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-gold-500/10 blur-[120px] rounded-full"></div>
+
         <div class="container mx-auto text-center relative z-10">
-            <h1 class="text-6xl md:text-8xl font-black mb-6">مرحباً بك في <span class="gold-gradient">ZONE</span></h1>
-            <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto font-light">المنصة التعليمية الأقوى لتعلم البرمجة. سجل حسابك وابدأ رحلة الاحتراف فوراً.</p>
-            <button onclick="openAuthModal()" class="bg-gold-500 text-black px-10 py-4 rounded-xl font-black text-lg hover:scale-105 transition-all shadow-lg shadow-gold-500/20">انضم إلينا مجاناً</button>
+            <h1 class="text-5xl md:text-8xl font-black mb-6 leading-tight">مرحباً بك في <span class="gold-gradient">ZONE</span></h1>
+            <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+                وجهتك الأولى لاحتراف التقنيات الحديثة. سجل بياناتك، احفظ رمزك السري، وابدأ التعلم فوراً.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <button onclick="openAuthModal()" id="heroMainBtn" class="bg-gold-500 text-black px-10 py-4 rounded-xl font-black text-lg hover:scale-105 transition-all shadow-lg shadow-gold-500/20">
+                    إنشاء حساب جديد
+                </button>
+                <a href="resources.html" class="border-2 border-gold-500/30 text-gold-500 px-10 py-4 rounded-xl font-black text-lg hover:bg-gold-500/10 transition-all">
+                    تصفح المصادر
+                </a>
+            </div>
         </div>
     </header>
 
-    <!-- 3. نافذة التسجيل المحدثة (Modal) -->
+    <!-- 5. مميزات سريعة -->
+    <section class="py-16 bg-black/50 border-t border-white/5">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div class="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-gold-500/40 transition group">
+                <div class="text-gold-500 text-4xl mb-4 group-hover:scale-110 transition">🚀</div>
+                <h3 class="text-xl font-bold mb-2">تطور سريع</h3>
+                <p class="text-gray-400 text-sm">محتوى تعليمي مركز للوصول لسوق العمل.</p>
+            </div>
+            <div class="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-gold-500/40 transition group">
+                <div class="text-gold-500 text-4xl mb-4 group-hover:scale-110 transition">🛡️</div>
+                <h3 class="text-xl font-bold mb-2">خصوصية تامة</h3>
+                <p class="text-gray-400 text-sm">بياناتك ورمزك السري محفوظان بجهازك فقط.</p>
+            </div>
+            <div class="p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-gold-500/40 transition group">
+                <div class="text-gold-500 text-4xl mb-4 group-hover:scale-110 transition">💎</div>
+                <h3 class="text-xl font-bold mb-2">شهادات معتمدة</h3>
+                <p class="text-gray-400 text-sm">احصل على شهادة إتمام بعد كل مسار تعليمي.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. نافذة التسجيل (Auth Modal) -->
     <div id="authModal" class="hidden fixed inset-0 bg-black/95 flex items-center justify-center z-[100] p-4 backdrop-blur-md">
-        <div class="bg-dark border border-gold-500/50 p-8 rounded-3xl max-w-lg w-full relative shadow-[0_0_50px_rgba(212,175,55,0.1)]">
-            <button onclick="closeAuthModal()" class="absolute top-5 left-5 text-gray-500 hover:text-white transition text-xl">✕</button>
+        <div class="bg-dark border border-gold-500/40 p-8 rounded-3xl max-w-md w-full relative">
+            <button onclick="closeAuthModal()" class="absolute top-5 left-5 text-gray-400 hover:text-white transition">✕</button>
             
             <div id="authContent">
-                <h2 class="text-3xl font-bold mb-2 gold-gradient text-center" id="modalTitle">إنشاء حساب جديد</h2>
-                <p class="text-gray-400 text-center mb-8 text-sm">كن جزءاً من مجتمع ZONE التعليمي</p>
+                <h2 class="text-2xl font-bold mb-1 gold-gradient text-center" id="modalTitle">انضم إلى ZONE</h2>
+                <p class="text-gray-400 text-xs text-center mb-6" id="modalSubTitle">أدخل بياناتك لإنشاء ملفك الشخصي</p>
                 
-                <div class="grid grid-cols-2 gap-4 mb-4" id="nameInputs">
-                    <div>
-                        <label class="block text-xs text-gold-500/70 mb-2 mr-1">الاسم الأول</label>
-                        <input type="text" id="firstName" placeholder="أحمد" class="w-full bg-white/5 border border-white/10 rounded-xl p-3 outline-none focus:border-gold-500 transition text-white">
-                    </div>
-                    <div>
-                        <label class="block text-xs text-gold-500/70 mb-2 mr-1">اسم العائلة</label>
-                        <input type="text" id="lastName" placeholder="محمد" class="w-full bg-white/5 border border-white/10 rounded-xl p-3 outline-none focus:border-gold-500 transition text-white">
-                    </div>
-                </div>
-
                 <div class="space-y-4">
-                    <div>
-                        <label class="block text-xs text-gold-500/70 mb-2 mr-1">البريد الإلكتروني</label>
-                        <input type="email" id="userEmail" placeholder="name@example.com" class="w-full bg-white/5 border border-white/10 rounded-xl p-3 outline-none focus:border-gold-500 transition text-white">
+                    <div id="nameFields" class="grid grid-cols-2 gap-4">
+                        <input type="text" id="fName" placeholder="الاسم الأول" class="w-full bg-white/5 border border-white/10 rounded-xl p-3 outline-none focus:border-gold-500 text-white text-sm">
+                        <input type="text" id="lName" placeholder="العائلة" class="w-full bg-white/5 border border-white/10 rounded-xl p-3 outline-none focus:border-gold-500 text-white text-sm">
                     </div>
+                    <input type="email" id="uEmail" placeholder="البريد الإلكتروني" class="w-full bg-white/5 border border-white/10 rounded-xl p-3 outline-none focus:border-gold-500 text-white text-sm">
                     <div>
-                        <label class="block text-xs text-gold-500/70 mb-2 mr-1">رمز الدخول (6 أرقام للخصوصية)</label>
-                        <input type="number" id="userPin" oninput="if(value.length>6)value=value.slice(0,6)" placeholder="••••••" class="w-full bg-white/5 border border-white/10 rounded-xl p-3 outline-none focus:border-gold-500 transition text-center text-2xl tracking-[10px] text-gold-500 font-bold">
+                        <label class="block text-[10px] text-gold-500/50 mb-1 mr-1 uppercase tracking-widest">رمز الدخول (6 أرقام)</label>
+                        <input type="number" id="uPin" oninput="if(value.length>6)value=value.slice(0,6)" placeholder="••••••" class="w-full bg-white/5 border border-white/10 rounded-xl p-3 outline-none focus:border-gold-500 text-center text-2xl tracking-[10px] text-gold-500 font-bold">
                     </div>
-                    <button onclick="handleAuth()" id="authBtn" class="w-full bg-gold-500 text-black font-black py-4 rounded-xl mt-4 hover:bg-gold-600 transition-all shadow-lg shadow-gold-500/30">تأكيد وإنشاء الحساب</button>
-                    <p id="authMsg" class="text-center text-sm mt-4 min-h-[20px]"></p>
+                    <button onclick="handleLogic()" id="mainAuthBtn" class="w-full bg-gold-500 text-black font-black py-4 rounded-xl mt-2 hover:bg-gold-600 transition shadow-lg shadow-gold-500/20">تأكيد الدخول</button>
+                    <p id="msg" class="text-center text-xs mt-2"></p>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 7. نافذة تأكيد الخروج وحذف الحساب -->
+    <div id="logoutModal" class="hidden fixed inset-0 bg-black/95 flex items-center justify-center z-[110] p-4 backdrop-blur-md">
+        <div class="bg-dark border border-red-600/30 p-8 rounded-3xl max-w-sm w-full text-center">
+            <div class="text-4xl mb-4">⚠️</div>
+            <h2 class="text-xl font-bold mb-2 text-white">هل تريد تسجيل الخروج؟</h2>
+            <p class="text-gray-400 mb-8 text-sm leading-relaxed">سيتم <span class="text-red-500 font-bold underline">حذف بيانات حسابك</span> من هذا الجهاز. ستحتاج للتسجيل من جديد للدخول.</p>
+            <div class="flex gap-3">
+                <button onclick="clearEverything()" class="flex-1 bg-red-600 text-white font-bold py-3 rounded-xl hover:bg-red-700 transition">نعم، امسح حسابي</button>
+                <button onclick="closeLogoutModal()" class="flex-1 bg-white/10 text-white font-bold py-3 rounded-xl hover:bg-white/20 transition">إلغاء</button>
             </div>
         </div>
     </div>
 
     <script>
-        // إخفاء الشاشة التحميلية
+        // --- 1. التحكم في الشاشة التحميلية ---
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('loader').style.opacity = '0';
                 setTimeout(() => document.getElementById('loader').style.display = 'none', 500);
-            }, 1000);
-            updateUI();
+            }, 800);
+            renderUI();
         });
 
+        // --- 2. فتح وإغلاق النوافذ ---
         function openAuthModal() { document.getElementById('authModal').classList.remove('hidden'); }
         function closeAuthModal() { document.getElementById('authModal').classList.add('hidden'); }
+        function openLogoutModal() { document.getElementById('logoutModal').classList.remove('hidden'); }
+        function closeLogoutModal() { document.getElementById('logoutModal').classList.add('hidden'); }
 
-        // تحديث الواجهة إذا كان مسجل دخول
-        function updateUI() {
-            const savedName = localStorage.getItem('zone_user_name');
-            if (savedName) {
-                document.getElementById('welcomeName').innerText = "أهلاً، " + savedName;
-                document.getElementById('welcomeName').classList.remove('hidden');
-                document.getElementById('navAuthBtn').innerText = "لوحة التحكم";
-                document.getElementById('navAuthBtn').classList.remove('animate-bounce');
+        // --- 3. تحديث واجهة المستخدم بناءً على الحساب ---
+        function renderUI() {
+            const user = localStorage.getItem('z_name');
+            const welcome = document.getElementById('welcomeName');
+            const logBtn = document.getElementById('logoutBtn');
+            const navBtn = document.getElementById('navAuthBtn');
+            const heroBtn = document.getElementById('heroMainBtn');
+
+            if (user) {
+                welcome.innerText = "أهلاً، " + user;
+                welcome.classList.remove('hidden');
+                logBtn.classList.remove('hidden');
+                navBtn.innerText = "لوحة التحكم";
+                navBtn.classList.remove('animate-bounce');
+                navBtn.onclick = () => window.location.href = "dashboard.html";
+                heroBtn.innerText = "دخول لوحة التحكم";
+                heroBtn.onclick = () => window.location.href = "dashboard.html";
                 
-                // تعديل المودال ليكون تسجيل دخول فقط
+                // تحديث شكل المودال ليصبح تسجيل دخول فقط
                 document.getElementById('modalTitle').innerText = "تسجيل الدخول";
-                document.getElementById('nameInputs').classList.add('hidden');
-                document.getElementById('userEmail').value = localStorage.getItem('zone_email');
-                document.getElementById('userEmail').readOnly = true;
-                document.getElementById('authBtn').innerText = "دخول";
+                document.getElementById('modalSubTitle').innerText = "أدخل رمزك السري للمتابعة";
+                document.getElementById('nameFields').classList.add('hidden');
+                document.getElementById('uEmail').value = localStorage.getItem('z_mail');
+                document.getElementById('uEmail').disabled = true;
+                document.getElementById('uEmail').classList.add('opacity-50');
             }
         }
 
-        function handleAuth() {
-            const fName = document.getElementById('firstName').value;
-            const lName = document.getElementById('lastName').value;
-            const email = document.getElementById('userEmail').value;
-            const pin = document.getElementById('userPin').value;
-            const msg = document.getElementById('authMsg');
+        // --- 4. معالجة التسجيل والدخول ---
+        function handleLogic() {
+            const fName = document.getElementById('fName').value;
+            const lName = document.getElementById('lName').value;
+            const email = document.getElementById('uEmail').value;
+            const pin = document.getElementById('uPin').value;
+            const statusMsg = document.getElementById('msg');
 
-            const isRegistered = localStorage.getItem('zone_pin');
+            const storedPin = localStorage.getItem('z_pin');
 
-            if (!isRegistered) {
-                // تسجيل جديد
+            if (!storedPin) {
+                // حالة تسجيل جديد
                 if (!fName || !lName || !email.includes('@') || pin.length !== 6) {
-                    msg.innerText = "برجاء ملء جميع البيانات بشكل صحيح";
-                    msg.className = "text-center text-sm mt-4 text-red-500 font-bold";
+                    statusMsg.innerText = "يرجى إكمال البيانات ورمز من 6 أرقام";
+                    statusMsg.className = "text-center text-xs mt-2 text-red-500 font-bold";
                     return;
                 }
-                localStorage.setItem('zone_user_name', fName + " " + lName);
-                localStorage.setItem('zone_email', email);
-                localStorage.setItem('zone_pin', pin);
-                msg.innerText = "تم إنشاء حسابك يا " + fName + "! جاري التحويل...";
+                localStorage.setItem('z_name', fName + " " + lName);
+                localStorage.setItem('z_mail', email);
+                localStorage.setItem('z_pin', pin);
+                statusMsg.innerText = "أهلاً بك في عائلة ZONE! جاري التحميل...";
             } else {
-                // دخول
-                if (pin === localStorage.getItem('zone_pin')) {
-                    msg.innerText = "تم التحقق.. أهلاً بك مجدداً";
+                // حالة تسجيل دخول
+                if (pin === storedPin) {
+                    statusMsg.innerText = "تم التحقق بنجاح.. أهلاً بعودتك";
                 } else {
-                    msg.innerText = "الرمز غير صحيح!";
-                    msg.className = "text-center text-sm mt-4 text-red-500 font-bold";
+                    statusMsg.innerText = "الرمز غير صحيح، حاول مرة أخرى";
+                    statusMsg.className = "text-center text-xs mt-2 text-red-500 font-bold";
                     return;
                 }
             }
-            
-            msg.className = "text-center text-sm mt-4 text-green-500 font-bold";
-            setTimeout(() => window.location.href = "dashboard.html", 1500);
+
+            statusMsg.className = "text-center text-xs mt-2 text-green-500 font-bold";
+            setTimeout(() => window.location.href = "dashboard.html", 1000);
+        }
+
+        // --- 5. مسح الحساب وتسجيل الخروج النهائي ---
+        function clearEverything() {
+            localStorage.clear();
+            location.reload();
         }
     </script>
 </body>
