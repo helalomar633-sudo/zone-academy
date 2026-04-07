@@ -3,134 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zone Dashboard | لوحة تحكم الطالب</title>
+    <title>Zone Dashboard | لوحة التحكم الديناميكية</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        gold: { 500: '#D4AF37', 600: '#B8860B' },
-                        dark: '#121212',
-                    }
-                }
-            }
+            theme: { extend: { colors: { gold: { 500: '#D4AF37', 600: '#B8860B' }, dark: '#121212' } } }
         }
     </script>
     <style>
-        body { font-family: 'Tajawal', sans-serif; background-color: #000; }
-        .gold-gradient {
-            background: linear-gradient(90deg, #D4AF37 0%, #F1C40F 50%, #D4AF37 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        body { font-family: 'Tajawal', sans-serif; background-color: #000; color: white; }
+        .gold-gradient { background: linear-gradient(90deg, #D4AF37 0%, #F1C40F 50%, #D4AF37 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
     </style>
 </head>
-<body class="bg-black text-gray-100">
+<body>
 
     <div class="flex min-h-screen">
         <!-- Sidebar -->
-        <aside class="w-64 bg-dark border-l border-white/5 hidden md:block">
-            <div class="p-6 text-3xl font-black tracking-tighter gold-gradient italic">ZONE.</div>
+        <aside class="w-64 bg-dark border-l border-white/5 sticky top-0 h-screen">
+            <div class="p-6 text-3xl font-black gold-gradient italic">ZONE.</div>
             <nav class="mt-10 px-4 space-y-2">
-                <a href="#" class="block py-2.5 px-4 rounded bg-gold-500 text-black font-bold">لوحة التحكم</a>
-                <a href="#" class="block py-2.5 px-4 rounded hover:bg-white/5 transition">كورساتي</a>
-                <a href="#" class="block py-2.5 px-4 rounded hover:bg-white/5 transition">الإعلانات</a>
-                <a href="#" class="block py-2.5 px-4 rounded hover:bg-white/5 transition">المصادر</a>
-                <button onclick="handleLogout()" class="w-full text-right block py-2.5 px-4 rounded hover:bg-red-600/20 text-red-500 transition mt-10">تسجيل الخروج</button>
+                <button onclick="showTab('main-dash')" id="btn-main-dash" class="w-full text-right py-2.5 px-4 rounded bg-gold-500 text-black font-bold transition">لوحة التحكم</button>
+                <button onclick="showTab('my-courses')" id="btn-my-courses" class="w-full text-right py-2.5 px-4 rounded hover:bg-white/5 transition text-gray-400">كورساتي</button>
+                <button class="w-full text-right py-2.5 px-4 rounded hover:bg-white/5 transition text-gray-400">المصادر</button>
+                <button onclick="handleLogout()" class="w-full text-right py-2.5 px-4 rounded hover:bg-red-600/20 text-red-500 transition mt-10 italic">تسجيل الخروج</button>
             </nav>
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 p-6 md:p-10 bg-[radial-gradient(circle_at_top_left,_var(--tw-gradient-stops))] from-dark via-black to-black">
-            <!-- Top Header -->
+        <main class="flex-1 p-6 md:p-10">
+            <!-- Header -->
             <header class="flex justify-between items-center mb-10 border-b border-white/5 pb-6">
                 <div>
-                    <h1 class="text-2xl font-bold">مرحباً بك يا <span id="displayFirstName" class="text-gold-500">بطل</span>! 👋</h1>
-                    <p class="text-gray-500 text-sm">استكمل رحلتك التعليمية في ZONE.</p>
+                    <h1 class="text-2xl font-bold">مرحباً، <span id="userFirst" class="text-gold-500 italic">بطل ZONE</span></h1>
+                    <p class="text-gray-500 text-sm">إليك ملخص نشاطك التعليمي اليوم.</p>
                 </div>
                 <div class="flex items-center gap-4">
-                    <div class="text-left hidden sm:block">
-                        <p id="fullName" class="text-sm font-bold">جاري التحميل...</p>
-                        <p id="userEmailDisplay" class="text-[10px] text-gray-500"></p>
-                    </div>
-                    <!-- دائرة الحرف الأول -->
-                    <div id="userInitials" class="w-12 h-12 bg-gold-500 rounded-full flex items-center justify-center border-2 border-gold-600 text-black font-black text-xl shadow-[0_0_15px_rgba(212,175,55,0.3)]">
-                        ؟
-                    </div>
+                    <div id="userCircle" class="w-12 h-12 bg-gold-500 rounded-full flex items-center justify-center text-black font-black text-xl border-2 border-gold-600">؟</div>
                 </div>
             </header>
 
-            <!-- Progress Stats -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                <div class="bg-dark p-6 rounded-2xl border border-white/5 hover:border-gold-500/30 transition">
-                    <p class="text-gray-500 text-sm mb-1">كورسات مكتملة</p>
-                    <h3 class="text-3xl font-black text-gold-500">12</h3>
+            <!-- Tab 1: Main Dashboard -->
+            <div id="main-dash" class="tab-content active">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                    <div class="bg-dark p-6 rounded-2xl border border-white/5">
+                        <p class="text-gray-500 text-sm mb-1">كورسات مكتملة</p>
+                        <h3 id="completedCount" class="text-3xl font-black text-gold-500">0</h3>
+                    </div>
+                    <div class="bg-dark p-6 rounded-2xl border border-white/5">
+                        <p class="text-gray-500 text-sm mb-1">ساعات التعلم</p>
+                        <h3 id="learningHours" class="text-3xl font-black text-white">0 <span class="text-xs font-light text-gray-500">ساعة</span></h3>
+                    </div>
+                    <div class="bg-dark p-6 rounded-2xl border border-white/5">
+                        <p class="text-gray-500 text-sm mb-1">المستوى</p>
+                        <h3 id="userLevel" class="text-2xl font-black text-green-500">مبتدئ</h3>
+                    </div>
                 </div>
-                <div class="bg-dark p-6 rounded-2xl border border-white/5 hover:border-gold-500/30 transition">
-                    <p class="text-gray-500 text-sm mb-1">ساعات التعلم</p>
-                    <h3 class="text-3xl font-black text-white">48 <span class="text-sm font-normal text-gray-400">ساعة</span></h3>
-                </div>
-                <div class="bg-dark p-6 rounded-2xl border border-white/5 hover:border-gold-500/30 transition">
-                    <p class="text-gray-500 text-sm mb-1">المستوى الحالي</p>
-                    <h3 class="text-3xl font-black text-green-500">متقدم</h3>
+                
+                <h2 class="text-xs font-black mb-6 text-gray-600 uppercase tracking-widest italic">آخر النشاطات</h2>
+                <div id="recentActivity" class="text-gray-500 italic text-sm p-10 border-2 border-dashed border-white/5 rounded-2xl text-center">
+                    لا يوجد نشاط مؤخراً. ابدأ بمشاهدة الدروس لتظهر إحصائياتك هنا!
                 </div>
             </div>
 
-            <!-- Active Courses -->
-            <h2 class="text-xs font-black mb-6 italic uppercase tracking-[3px] text-gray-600 border-r-4 border-gold-500 pr-3">تواصل التقدم</h2>
-            <div class="space-y-4">
-                <div class="bg-dark p-5 rounded-xl flex flex-col md:flex-row md:items-center justify-between border border-white/5 hover:bg-white/[0.02] transition">
-                    <div class="flex items-center gap-4">
-                        <div class="w-14 h-14 bg-white/5 rounded-lg flex items-center justify-center text-gold-500 font-black border border-white/10 italic">React</div>
-                        <div>
-                            <h4 class="font-bold text-gray-100">احتراف تطوير الواجهات بـ React</h4>
-                            <p class="text-[10px] text-gray-500 italic">المدرب: م. علي حسن</p>
+            <!-- Tab 2: My Courses -->
+            <div id="my-courses" class="tab-content">
+                <h2 class="text-2xl font-bold mb-8 gold-gradient">كورساتي المشترك بها</h2>
+                <div class="grid grid-cols-1 gap-4" id="coursesList">
+                    <!-- كورس تجريبي 1 -->
+                    <div class="bg-dark p-5 rounded-xl border border-white/5 flex justify-between items-center group hover:border-gold-500/50 transition">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-white/5 rounded flex items-center justify-center font-bold text-gold-500">JS</div>
+                            <div>
+                                <h4 class="font-bold">أساسيات لغة JavaScript</h4>
+                                <p class="text-xs text-gray-500">12 درس • م. عمر هلال</p>
+                            </div>
                         </div>
+                        <button onclick="completeCourse(this, 5)" class="bg-white/5 hover:bg-gold-500 hover:text-black px-4 py-2 rounded-lg text-xs font-bold transition">إكمال الكورس</button>
                     </div>
-                    <div class="w-full md:w-64 mt-4 md:mt-0">
-                        <div class="flex justify-between text-[10px] mb-1.5 text-gray-400">
-                            <span>نسبة الإنجاز</span>
-                            <span class="text-gold-500 font-bold">75%</span>
+
+                    <!-- كورس تجريبي 2 -->
+                    <div class="bg-dark p-5 rounded-xl border border-white/5 flex justify-between items-center group hover:border-gold-500/50 transition">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-white/5 rounded flex items-center justify-center font-bold text-gold-500">UI</div>
+                            <div>
+                                <h4 class="font-bold">تصميم واجهات المستخدم</h4>
+                                <p class="text-xs text-gray-500">8 دروس • فريق ZONE</p>
+                            </div>
                         </div>
-                        <div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
-                            <div class="bg-gold-500 h-full w-[75%] shadow-[0_0_10px_#D4AF37]"></div>
-                        </div>
+                        <button onclick="completeCourse(this, 3)" class="bg-white/5 hover:bg-gold-500 hover:text-black px-4 py-2 rounded-lg text-xs font-bold transition">إكمال الكورس</button>
                     </div>
-                    <button class="mt-4 md:mt-0 bg-gold-500 text-black px-6 py-2 rounded-lg text-sm font-bold hover:bg-gold-600 transition">متابعة الدرس</button>
                 </div>
             </div>
         </main>
     </div>
 
     <script>
-        // كود الربط وجلب البيانات
-        window.addEventListener('load', () => {
-            const name = localStorage.getItem('z_name');
-            const email = localStorage.getItem('z_mail');
+        // تحميل البيانات عند فتح الصفحة
+        window.onload = () => {
+            const name = localStorage.getItem('z_name') || "بطل ZONE";
+            document.getElementById('userFirst').innerText = name.split(' ')[0];
+            document.getElementById('userCircle').innerText = name.charAt(0);
+            updateStatsUI();
+        };
 
-            // إذا لم يسجل دخول، ارجع لصفحة التسجيل
-            if (!name) {
-                window.location.href = "index.html";
-                return;
-            }
-
-            // تحديث البيانات في الصفحة
-            document.getElementById('fullName').innerText = name;
-            document.getElementById('displayFirstName').innerText = name.split(' ')[0]; // أول اسم فقط
-            document.getElementById('userEmailDisplay').innerText = email;
+        // وظيفة التبديل بين التبويبات (القوائم)
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
             
-            // تحديث حرف الدائرة
-            document.getElementById('userInitials').innerText = name.charAt(0);
-        });
+            // تحديث شكل الزراير في السايد بار
+            document.querySelectorAll('nav button').forEach(b => {
+                b.classList.remove('bg-gold-500', 'text-black', 'font-bold');
+                b.classList.add('text-gray-400');
+            });
+            const activeBtn = document.getElementById('btn-' + tabId);
+            activeBtn.classList.add('bg-gold-500', 'text-black', 'font-bold');
+            activeBtn.classList.remove('text-gray-400');
+        }
 
-        // تسجيل الخروج
-        function handleLogout() {
-            if(confirm("هل تريد تسجيل الخروج؟ سيتم حذف بياناتك من هذا المتصفح.")) {
-                localStorage.clear();
-                window.location.href = "index.html";
+        // وظيفة إكمال الكورس وتحديث الذاكرة
+        function completeCourse(btn, hours) {
+            // منع الضغط مرتين
+            if (btn.disabled) return;
+            
+            // تحديث الإحصائيات في الذاكرة
+            let currentCourses = parseInt(localStorage.getItem('stats_done') || 0);
+            let currentHours = parseInt(localStorage.getItem('stats_hours') || 0);
+            
+            localStorage.setItem('stats_done', currentCourses + 1);
+            localStorage.setItem('stats_hours', currentHours + hours);
+            
+            // تغيير شكل الزرار
+            btn.innerText = "✓ مكتمل";
+            btn.classList.replace('bg-white/5', 'bg-green-600/20');
+            btn.classList.add('text-green-500');
+            btn.disabled = true;
+            
+            updateStatsUI();
+            alert("عاش يا بطل! تم إضافة " + hours + " ساعات لملفك الشخصي.");
+        }
+
+        // تحديث أرقام لوحة التحكم من الذاكرة
+        function updateStatsUI() {
+            const done = localStorage.getItem('stats_done') || 0;
+            const hours = localStorage.getItem('stats_hours') || 0;
+            
+            document.getElementById('completedCount').innerText = done;
+            document.getElementById('learningHours').innerText = hours;
+            
+            // تحديث المستوى تلقائياً
+            const levelTag = document.getElementById('userLevel');
+            if (done >= 5) {
+                levelTag.innerText = "متقدم";
+                levelTag.className = "text-2xl font-black text-purple-500";
+            } else if (done >= 2) {
+                levelTag.innerText = "متوسط";
+                levelTag.className = "text-2xl font-black text-blue-500";
+            } else {
+                levelTag.innerText = "مبتدئ";
+                levelTag.className = "text-2xl font-black text-green-500";
             }
+        }
+
+        function handleLogout() {
+            localStorage.clear();
+            window.location.href = "index.html";
         }
     </script>
 </body>
