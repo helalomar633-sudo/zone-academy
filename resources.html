@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zone | مكتبة المصادر</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Tajawal', sans-serif; }</style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <div class="container mx-auto px-6 py-12">
+        <!-- Header -->
+        <div class="mb-12 text-right border-r-4 border-indigo-600 pr-6">
+            <h1 class="text-4xl font-black">مكتبة المصادر والملفات</h1>
+            <p class="text-gray-500 mt-2">كل ما تحتاجه من كتب، أكواد، وملفات PDF لدعم رحلتك في Zone.</p>
+        </div>
+
+        <!-- Filters & Search -->
+        <div class="flex flex-col md:flex-row gap-4 mb-8">
+            <input type="text" placeholder="ابحث عن ملف..." class="flex-1 p-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 outline-none">
+            <select class="p-3 rounded-xl border border-gray-200 bg-white">
+                <option>الكل</option>
+                <option>ملفات PDF</option>
+                <option>أكواد برمجة</option>
+                <option>كتب رقمية</option>
+            </select>
+        </div>
+
+        <!-- Resources Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- Resource Card 1 (PDF) -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4 hover:border-indigo-500 transition">
+                <div class="w-16 h-16 bg-red-100 text-red-600 rounded-xl flex items-center justify-center text-2xl">
+                    📄
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-bold">ملخص أساسيات الـ JS</h3>
+                    <p class="text-xs text-gray-400">PDF • 2.4 MB</p>
+                </div>
+                <button class="bg-gray-100 p-2 rounded-lg hover:bg-indigo-600 hover:text-white transition">تحميل</button>
+            </div>
+
+            <!-- Resource Card 2 (Code) -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4 hover:border-indigo-500 transition">
+                <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center text-2xl">
+                    💻
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-bold">كود مشروع المتجر</h3>
+                    <p class="text-xs text-gray-400">ZIP • 15 MB</p>
+                </div>
+                <button class="bg-gray-100 p-2 rounded-lg hover:bg-indigo-600 hover:text-white transition">تحميل</button>
+            </div>
+
+            <!-- Resource Card 3 (Book) -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4 hover:border-indigo-500 transition">
+                <div class="w-16 h-16 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center text-2xl">
+                    📚
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-bold">دليل الذكاء الاصطناعي</h3>
+                    <p class="text-xs text-gray-400">E-Book • 8 MB</p>
+                </div>
+                <button class="bg-gray-100 p-2 rounded-lg hover:bg-indigo-600 hover:text-white transition">تحميل</button>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
