@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zone Dashboard | لوحة التحكم الديناميكية</title>
+    <title>Zone Dashboard | لوحة التحكم الذكية</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <script>
@@ -16,6 +16,8 @@
         .gold-gradient { background: linear-gradient(90deg, #D4AF37 0%, #F1C40F 50%, #D4AF37 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
+        .progress-container { width: 100%; background-color: #1e1e1e; border-radius: 10px; height: 8px; margin-top: 10px; overflow: hidden; }
+        .progress-bar { height: 100%; background: #D4AF37; width: 0%; transition: width 0.5s ease-in-out; }
     </style>
 </head>
 <body>
@@ -37,8 +39,8 @@
             <!-- Header -->
             <header class="flex justify-between items-center mb-10 border-b border-white/5 pb-6">
                 <div>
-                    <h1 class="text-2xl font-bold">مرحباً، <span id="userFirst" class="text-gold-500 italic">بطل ZONE</span></h1>
-                    <p class="text-gray-500 text-sm">إليك ملخص نشاطك التعليمي اليوم.</p>
+                    <h1 class="text-2xl font-bold">مرحباً، <span id="userFirst" class="text-gold-500 italic">بطل ZONE</span> 👋</h1>
+                    <p class="text-gray-500 text-sm">استكمل رحلتك التعليمية في ZONE.</p>
                 </div>
                 <div class="flex items-center gap-4">
                     <div id="userCircle" class="w-12 h-12 bg-gold-500 rounded-full flex items-center justify-center text-black font-black text-xl border-2 border-gold-600">؟</div>
@@ -49,128 +51,161 @@
             <div id="main-dash" class="tab-content active">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
                     <div class="bg-dark p-6 rounded-2xl border border-white/5">
-                        <p class="text-gray-500 text-sm mb-1">كورسات مكتملة</p>
+                        <p class="text-gray-400 text-sm mb-1 font-bold">كورسات مكتملة</p>
                         <h3 id="completedCount" class="text-3xl font-black text-gold-500">0</h3>
                     </div>
                     <div class="bg-dark p-6 rounded-2xl border border-white/5">
-                        <p class="text-gray-500 text-sm mb-1">ساعات التعلم</p>
+                        <p class="text-gray-400 text-sm mb-1 font-bold">ساعات التعلم</p>
                         <h3 id="learningHours" class="text-3xl font-black text-white">0 <span class="text-xs font-light text-gray-500">ساعة</span></h3>
                     </div>
                     <div class="bg-dark p-6 rounded-2xl border border-white/5">
-                        <p class="text-gray-500 text-sm mb-1">المستوى</p>
+                        <p class="text-gray-400 text-sm mb-1 font-bold">المستوى الحالي</p>
                         <h3 id="userLevel" class="text-2xl font-black text-green-500">مبتدئ</h3>
                     </div>
                 </div>
                 
-                <h2 class="text-xs font-black mb-6 text-gray-600 uppercase tracking-widest italic">آخر النشاطات</h2>
-                <div id="recentActivity" class="text-gray-500 italic text-sm p-10 border-2 border-dashed border-white/5 rounded-2xl text-center">
-                    لا يوجد نشاط مؤخراً. ابدأ بمشاهدة الدروس لتظهر إحصائياتك هنا!
+                <h2 class="text-xs font-black mb-6 text-gray-600 uppercase tracking-widest italic border-r-4 border-gold-500 pr-3">تواصل التقدم</h2>
+                <div id="recentActivityBox" class="bg-dark p-8 border border-white/5 rounded-2xl">
+                    <!-- سيتم تحديث هذا الجزء ديناميكياً -->
+                    <div id="activityContent">
+                         <p class="text-gray-500 italic text-center">لا يوجد نشاط مؤخراً. ابدأ بمشاهدة الدروس لتظهر إحصائياتك هنا!</p>
+                    </div>
                 </div>
             </div>
 
             <!-- Tab 2: My Courses -->
             <div id="my-courses" class="tab-content">
-                <h2 class="text-2xl font-bold mb-8 gold-gradient">كورساتي المشترك بها</h2>
+                <h2 class="text-2xl font-bold mb-8 gold-gradient">كورساتي المتاحة</h2>
                 <div class="grid grid-cols-1 gap-4" id="coursesList">
-                    <!-- كورس تجريبي 1 -->
-                    <div class="bg-dark p-5 rounded-xl border border-white/5 flex justify-between items-center group hover:border-gold-500/50 transition">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-white/5 rounded flex items-center justify-center font-bold text-gold-500">JS</div>
-                            <div>
-                                <h4 class="font-bold">أساسيات لغة JavaScript</h4>
-                                <p class="text-xs text-gray-500">12 درس • م. عمر هلال</p>
+                    
+                    <!-- كورس 1 -->
+                    <div class="bg-dark p-5 rounded-xl border border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 group hover:border-gold-500/50 transition">
+                        <div class="flex items-center gap-4 w-full">
+                            <div class="w-14 h-14 bg-white/5 rounded-lg flex items-center justify-center font-bold text-gold-500 text-xl">React</div>
+                            <div class="flex-1">
+                                <h4 class="font-bold text-lg">احتراف تطوير الواجهات بـ React</h4>
+                                <p class="text-xs text-gray-500">المدرب: م. علي حسن • <span class="text-gold-500">48 ساعة</span></p>
+                                <div class="progress-container"><div class="progress-bar" id="prog-1"></div></div>
                             </div>
                         </div>
-                        <button onclick="completeCourse(this, 5)" class="bg-white/5 hover:bg-gold-500 hover:text-black px-4 py-2 rounded-lg text-xs font-bold transition">إكمال الكورس</button>
+                        <button onclick="completeCourse(this, 48, 'prog-1')" class="w-full md:w-auto bg-white/5 hover:bg-gold-500 hover:text-black px-6 py-3 rounded-lg text-sm font-bold transition whitespace-nowrap">متابعة الدرس</button>
                     </div>
 
-                    <!-- كورس تجريبي 2 -->
-                    <div class="bg-dark p-5 rounded-xl border border-white/5 flex justify-between items-center group hover:border-gold-500/50 transition">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-white/5 rounded flex items-center justify-center font-bold text-gold-500">UI</div>
-                            <div>
-                                <h4 class="font-bold">تصميم واجهات المستخدم</h4>
-                                <p class="text-xs text-gray-500">8 دروس • فريق ZONE</p>
+                    <!-- كورس 2 -->
+                    <div class="bg-dark p-5 rounded-xl border border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 group hover:border-gold-500/50 transition">
+                        <div class="flex items-center gap-4 w-full">
+                            <div class="w-14 h-14 bg-white/5 rounded-lg flex items-center justify-center font-bold text-gold-500 text-xl">JS</div>
+                            <div class="flex-1">
+                                <h4 class="font-bold text-lg">أساسيات البرمجة بـ JavaScript</h4>
+                                <p class="text-xs text-gray-500">المدرب: م. عمر هلال • <span class="text-gold-500">12 ساعة</span></p>
+                                <div class="progress-container"><div class="progress-bar" id="prog-2"></div></div>
                             </div>
                         </div>
-                        <button onclick="completeCourse(this, 3)" class="bg-white/5 hover:bg-gold-500 hover:text-black px-4 py-2 rounded-lg text-xs font-bold transition">إكمال الكورس</button>
+                        <button onclick="completeCourse(this, 12, 'prog-2')" class="w-full md:w-auto bg-white/5 hover:bg-gold-500 hover:text-black px-6 py-3 rounded-lg text-sm font-bold transition whitespace-nowrap">متابعة الدرس</button>
                     </div>
+
                 </div>
             </div>
         </main>
     </div>
 
     <script>
-        // تحميل البيانات عند فتح الصفحة
+        // 1. عند تحميل الصفحة: جلب البيانات أو تصفيرها للمستخدم الجديد
         window.onload = () => {
             const name = localStorage.getItem('z_name') || "بطل ZONE";
             document.getElementById('userFirst').innerText = name.split(' ')[0];
-            document.getElementById('userCircle').innerText = name.charAt(0);
+            document.getElementById('userCircle').innerText = name.charAt(0).toUpperCase();
+
+            // إذا كان المستخدم جديداً (لا يوجد بيانات مخزنة)، نبدأ من الصفر
+            if (localStorage.getItem('stats_done') === null) {
+                localStorage.setItem('stats_done', 0);
+                localStorage.setItem('stats_hours', 0);
+            }
+
             updateStatsUI();
         };
 
-        // وظيفة التبديل بين التبويبات (القوائم)
+        // 2. التبديل بين القوائم
         function showTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             
-            // تحديث شكل الزراير في السايد بار
             document.querySelectorAll('nav button').forEach(b => {
                 b.classList.remove('bg-gold-500', 'text-black', 'font-bold');
                 b.classList.add('text-gray-400');
             });
             const activeBtn = document.getElementById('btn-' + tabId);
-            activeBtn.classList.add('bg-gold-500', 'text-black', 'font-bold');
-            activeBtn.classList.remove('text-gray-400');
+            if(activeBtn) {
+                activeBtn.classList.add('bg-gold-500', 'text-black', 'font-bold');
+                activeBtn.classList.remove('text-gray-400');
+            }
         }
 
-        // وظيفة إكمال الكورس وتحديث الذاكرة
-        function completeCourse(btn, hours) {
-            // منع الضغط مرتين
+        // 3. وظيفة إكمال الكورس (نظام الـ 75% + زيادة الساعات)
+        function completeCourse(btn, hours, barId) {
             if (btn.disabled) return;
+
+            // محاكاة الوصول لنسبة 75% (التي تعتبرها أنت إكمالاً)
+            document.getElementById(barId).style.width = "75%";
             
-            // تحديث الإحصائيات في الذاكرة
+            // تحديث القيم في الذاكرة
             let currentCourses = parseInt(localStorage.getItem('stats_done') || 0);
             let currentHours = parseInt(localStorage.getItem('stats_hours') || 0);
             
             localStorage.setItem('stats_done', currentCourses + 1);
             localStorage.setItem('stats_hours', currentHours + hours);
             
-            // تغيير شكل الزرار
-            btn.innerText = "✓ مكتمل";
+            // تحديث شكل الزر
+            btn.innerText = "✓ تمت المشاهدة";
             btn.classList.replace('bg-white/5', 'bg-green-600/20');
             btn.classList.add('text-green-500');
             btn.disabled = true;
             
             updateStatsUI();
-            alert("عاش يا بطل! تم إضافة " + hours + " ساعات لملفك الشخصي.");
+            alert("عاش يا بطل! تم تحديث ملفك الشخصي بنجاح.");
         }
 
-        // تحديث أرقام لوحة التحكم من الذاكرة
+        // 4. تحديث الواجهة وحساب المستوى تلقائياً
         function updateStatsUI() {
-            const done = localStorage.getItem('stats_done') || 0;
-            const hours = localStorage.getItem('stats_hours') || 0;
+            const done = parseInt(localStorage.getItem('stats_done') || 0);
+            const hours = parseInt(localStorage.getItem('stats_hours') || 0);
             
             document.getElementById('completedCount').innerText = done;
-            document.getElementById('learningHours').innerText = hours;
+            document.getElementById('learningHours').innerHTML = hours + ' <span class="text-xs font-light text-gray-500">ساعة</span>';
             
-            // تحديث المستوى تلقائياً
             const levelTag = document.getElementById('userLevel');
-            if (done >= 5) {
-                levelTag.innerText = "متقدم";
-                levelTag.className = "text-2xl font-black text-purple-500";
-            } else if (done >= 2) {
+            const activityContent = document.getElementById('activityContent');
+
+            // منطق تحديد المستوى (مبتدئ -> متوسط -> متقدم)
+            if (done === 0) {
+                levelTag.innerText = "مبتدئ";
+                levelTag.className = "text-2xl font-black text-gray-500";
+                activityContent.innerHTML = `<p class="text-gray-500 italic text-center">أهلاً بك! ابدأ رحلتك الآن، أول كورس تخلصه هيغير مستواك.</p>`;
+            } 
+            else if (done >= 1 && done < 3) {
+                levelTag.innerText = "طالب نشط";
+                levelTag.className = "text-2xl font-black text-green-500";
+                activityContent.innerHTML = `<div class="flex justify-between items-center"><p class="font-bold">استمر في التقدم!</p> <span class="text-xs bg-gold-500 text-black px-2 py-1 rounded">أنجزت ${done} كورس</span></div>`;
+            } 
+            else if (done >= 3 && done < 6) {
                 levelTag.innerText = "متوسط";
                 levelTag.className = "text-2xl font-black text-blue-500";
-            } else {
-                levelTag.innerText = "مبتدئ";
-                levelTag.className = "text-2xl font-black text-green-500";
+                activityContent.innerHTML = `<p class="font-bold text-blue-400">أداء رائع! لقد تخطيت مرحلة البداية بنجاح.</p>`;
+            } 
+            else {
+                levelTag.innerText = "متقدم 🔥";
+                levelTag.className = "text-2xl font-black text-purple-500 italic";
+                activityContent.innerHTML = `<p class="font-bold text-purple-400">أنت الآن أحد وحوش ZONE! مستواك احترافي.</p>`;
             }
         }
 
+        // 5. تسجيل الخروج (تصفير الجلسة)
         function handleLogout() {
-            localStorage.clear();
-            window.location.href = "index.html";
+            // نمسح فقط بيانات النشاط لغرض التجربة أو clear() لمسح كل شيء
+            localStorage.removeItem('stats_done');
+            localStorage.removeItem('stats_hours');
+            alert("تم تسجيل الخروج وتصفير البيانات المؤقتة.");
+            location.reload(); 
         }
     </script>
 </body>
